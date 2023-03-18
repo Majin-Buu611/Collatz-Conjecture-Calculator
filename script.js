@@ -3,6 +3,8 @@ const runButton = document.querySelector('#runButton');
 const downloadButton = document.querySelector('#downloadButton');
 const outputDiv = document.querySelector('#output');
 
+let outputStr = '';
+
 runButton.addEventListener('click', () => {
     const startNum = BigInt(document.querySelector('#startNum').value);
     const numIterations = parseInt(document.querySelector('#numIterations').value);
@@ -12,7 +14,6 @@ runButton.addEventListener('click', () => {
         return;
     }
 
-    let outputStr = '';
     let stopTime = 0;
     let n = startNum;
     let prevN = null;
@@ -58,15 +59,18 @@ runButton.addEventListener('click', () => {
 
     outputDiv.textContent = outputStr;
     downloadButton.disabled = false;
-    downloadButton.addEventListener('click', () => {
-        const blob = new Blob([outputStr], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'collatz_output.txt';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    });
+});
+
+downloadButton.addEventListener('click', () => {
+    const blob = new Blob([outputStr], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'collatz_output.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    downloadButton.disabled = true;
+    outputStr = '';
 });
