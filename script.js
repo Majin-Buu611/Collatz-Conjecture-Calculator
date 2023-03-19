@@ -7,7 +7,7 @@ const clearButton = document.querySelector('#clearButton');
 let outputStr = '';
 
 runButton.addEventListener('click', () => {
-    const startNum = BigInt(document.querySelector('#startNum').value);
+    const startNumInput = document.querySelector('#startNum').value;
     const numIterations = parseInt(document.querySelector('#numIterations').value);
 
     if (numIterations < -1) {
@@ -15,8 +15,12 @@ runButton.addEventListener('click', () => {
         return;
     }
 
+    let [base, exponent] = startNumInput.split('^');
+    base = BigInt(base);
+    exponent = parseInt(exponent);
+
     let stopTime = 0;
-    let n = startNum;
+    let n = base ** BigInt(exponent);
     let prevN = null;
     let alternatingCount = 0;
     let repeatedCount = 0;
