@@ -2,6 +2,7 @@ const form = document.querySelector('form');
 const runButton = document.querySelector('#runButton');
 const downloadButton = document.querySelector('#downloadButton');
 const outputDiv = document.querySelector('#output');
+const clearButton = document.querySelector('#clearButton');
 
 let outputStr = '';
 
@@ -73,4 +74,10 @@ downloadButton.addEventListener('click', () => {
     URL.revokeObjectURL(url);
     downloadButton.disabled = true;
     outputStr = '';
+});
+
+clearButton.addEventListener('click', () => {
+    outputDiv.textContent = '';
+    outputStr = '';
+    downloadButton.disabled = true;
 });
